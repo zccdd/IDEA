@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.coupons.CouposMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.model.coupons.Couponsn" >
+    <id column="CouponsId" property="couponsId" jdbcType="INTEGER" />
+    <result column="CouponsName" property="couponsName" jdbcType="VARCHAR" />
+    <result column="CouponsLmg" property="couponsLmg" jdbcType="VARCHAR"   />
+    <result column="CouponsType" property="couponsType" jdbcType="VARCHAR" />
+    <result column="StartedTime" property="startedTime" jdbcType="DATE" />
+    <result column="ComeTime" property="comeTime" jdbcType="DATE" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="CouponsPriority" property="couponsPriority" jdbcType="INTEGER" />
+    <result column="Grade" property="grade" jdbcType="INTEGER" />
+    <result column="State" property="state" jdbcType="INTEGER" />
+    <result column="Active" property="active" jdbcType="INTEGER" />
+  </resultMap>
+
+  <!--  	总条数 -->
+  <select id="queryCount" parameterType="com.jk.model.coupons.Couponsn" resultType="long">
+
+    select count(*) from  b_Coupons  where 1=1
+    <if test="dq.couponsName != null and dq.couponsName != '' ">
+
+      and   CouponsName like concat('%',#{dq.couponsName},'%')
+    </if>
+    <if test="dq.state != null and dq.state != '' ">
+
+      and   state like concat('%',#{dq.state},'%')
+    </if>
+    <if test="dq.active != null and dq.active != '' ">
+
+      and   active like concat('%',#{dq.active},'%')
+    </if>
+
+  </select>
+
+  <!--  分页数据 -->
+  <select id="queryCoupos" resultMap="BaseResultMap" >
+
+    select * from  b_Coupons WHERE 1=1
+    <if test="dq.couponsName != null and dq.couponsName != '' ">
+
+      and   couponsName like concat('%',#{dq.couponsName},'%')
+    </if>
+    <if test="dq.state != null and dq.state != '' ">
+
+      and   state like concat('%',#{dq.state},'%')
+    </if>
+    <if test="dq.active != null and dq.active != '' ">
+
+      and   active like concat('%',#{dq.active},'%')
+    </if>
+
+    limit  #{start},#{end}
+
+  </select>
+  <!--//批量删除-->
+  <delete id="delCoupons" parameterType="java.lang.String">
+    delete from b_coupons  where couponsId in
+    <foreach collection="array" item="arr"  open="(" separator="," close=")">
+      #{arr}
+    </foreach>
+
+
+  </delete>
+
+<!--单条查询-->
+  <select id="querdan"  resultMap="BaseResultMap">
+
+SELECT * FROM  b_coupons WHERE couponsId=#{couponsId}
+
+  </select>
+
+<!--新增数据-->
+
+  <insert id="saveCoupons"  parameterType="com.jk.model.coupons.Couponsn">
+
+    insert into b_coupons(couponsName,couponsLmg,startedTime,comeTime,grade)  values (#{dq.couponsName},#{dq.couponsLmg},#{dq.startedTime},#{dq.comeTime},#{dq.grade})
+
+  </insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- <sql id="Base_Column_List" >
+    id, uid, uname, address, xxaddress, uphone, email
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from b_address
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from b_address
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jk.model.address.Address" >
+    insert into b_address (id, uid, uname,
+      address, xxaddress, uphone,
+      email)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{uname,jdbcType=VARCHAR},
+      #{address,jdbcType=VARCHAR}, #{xxaddress,jdbcType=VARCHAR}, #{uphone,jdbcType=CHAR},
+      #{email,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jk.model.address.Address" >
+    insert into b_address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="uname != null" >
+        uname,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="xxaddress != null" >
+        xxaddress,
+      </if>
+      <if test="uphone != null" >
+        uphone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="uname != null" >
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="xxaddress != null" >
+        #{xxaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="uphone != null" >
+        #{uphone,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jk.model.address.Address" >
+    update b_address
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="uname != null" >
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="xxaddress != null" >
+        xxaddress = #{xxaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="uphone != null" >
+        uphone = #{uphone,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jk.model.address.Address" >
+    update b_address
+    set uid = #{uid,jdbcType=INTEGER},
+      uname = #{uname,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      xxaddress = #{xxaddress,jdbcType=VARCHAR},
+      uphone = #{uphone,jdbcType=CHAR},
+      email = #{email,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>-->
+</mapper>

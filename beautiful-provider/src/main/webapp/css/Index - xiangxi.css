@@ -1,0 +1,136 @@
+@charset "utf-8";
+/* CSS Document */
+#content{   top:177px; width:100%; height:800px;  }
+#xiangxi_youce{ border-left:1px solid #ccc; width:180px; float:right; margin-top:20px;}
+#xiangxi_zuoce{ float:left; margin-top:50px; margin-left:20px; width:325px; height:680px;}
+#xiangxi_zhongjian{ float:left;  width:540px; height:810px; margin-top:10px; text-align:left; margin-left:30px;}
+#remaituijian{margin:0px auto;  width:1100px; height:750px;}
+
+#biaoti{ font-size:25px; font-family:"微软雅黑"; font-weight:bolder;}
+#xiangxi_zhongjian div{ margin-top:40px;}
+#xianjia{ text-align:right;}
+.jiage{ float:left;}
+.kucun{ color:#999; margin-left:10px;}
+.pingjia{ color:#ccc; text-align:right;}
+.pingjia_shuliang{ text-align:right;}
+#chima a{ text-decoration:none; color:#666;}
+.span{ color:#999; float:left;}
+.span_img{ float:left; margin-left:15px;}
+#chima1{ display:inline-block; width:50px; height:20px; border:2px solid #ff8066; text-align:center;}
+#chima2{ display:inline-block; width:50px; height:20px; border:1px solid #333; text-align:center;}
+.jiajian .sub{display:inline; border:none; width:20px; height:20px; background:#FFF; border-radius:2px; cursor:pointer; color:#666; font-size:13px; border:1px solid #ccc;}
+.lijigoumai .sub{ display:inline; border:none; width:200px; height:50px; background:#ff4066;; border-radius:2px; cursor:pointer; color:#FFF; font-size:20px; }
+.jiarugouwuche .sub{display:inline; border:1px solid #ccc; width:200px; height:50px; background:#FFF;  border-radius:2px; cursor:pointer; color:#333; font-size:20px;}
+.fuwu_liebiao a{ text-decoration:none; color:#999; margin-top:-10px;}
+#kefu_maijia{ float:left; margin-top:-5px;}
+.fuwu_liebiao a:horve{ color:#ff4466;}
+.fuwu_liebiao{ margin-right:13px; float:left; margin-top:3px;}
+.fuwu_img{ float:left;}
+.jiage{ font-size:25px; font-family:"微软雅黑"; font-weight:bolder; color:#ff4466; float:left; margin-top:-8px;}
+.youhui{ font-size:14px;}
+#zuoce_datupian ul{ list-style:none; margin:0px; padding:0px;}
+#zuoce_datupian{ }
+#zuoce_xiaotupian{ margin-top:10px; }
+
+#head{ width:100%; text-align:right; margin:0px auto; height:30px; background-color:#f2f2f2; }
+#head ul,#head ul li,#head ul li a{ margin:0px; padding:0px;}
+#head ul li{ display:inline-block; list-style:none;}
+#head ul li a{ color:#666666; font-size:14px; text-decoration:none;}
+#head ul li a:hover{color:#0CF;}
+.shuxian{border-right:1px solid #ccc;}
+#sub_menu_server ul,#sub_menu_consume ul{display:none;}
+#sub_menu_consume .tabmenu{ position:absolute; right:103px; top:23px; background:#f2f2f2; text-align:center; line-height:25px; width:70px; }
+#sub_menu_server .tabmenu{ position:absolute; right:15px; top:23px; text-align:center; line-height:25px; width:70px; background:#f2f2f2;}
+#sub_menu_consume .tabmenu li:hover,#sub_menu_server .tabmenu li:hover{ background:#ccc;}
+#sub_menu{ display:inline;}
+/*以上是头部css的定义*/
+/*以下是搜索和logo css的定义*/
+/*头部*/
+.tupian{
+	height:152px;
+	position:relative;
+	min-width:1200px;
+	border-top:1px solid #cccccc;
+	}
+.tupian a{
+	color:#fff;
+	text-decoration:none;
+	}
+ul{
+	list-style:none
+	}
+.tab{
+	top:0px;
+	left:0px;
+	width:100%;
+	height:32px;
+	font-size:14px;
+	background-color:#333;
+	}
+.tab-top{
+	width:1200px;
+	margin:auto;
+	}
+.tab-top a:hover{
+	background-color:#505050;
+	}
+.tab-top li:first-child{
+	padding-left:0;
+	}
+.lalss{
+	position: fixed;
+	top:0;
+	width: 100%;
+	z-index: 400;
+	}
+.tab-top li{
+	position:relative;
+	float:left;
+	height:32px;
+	line-height:32px;
+	text-align:center;
+	}
+.tab-top a{
+	display:block;
+	padding:0 20px;
+	overflow:hidden;/*超出边框部分不显示*/
+	white-space:nowrap;/*啥意思啊*/
+	}
+.js1-2{
+	padding:0 6px;
+	height:14px;
+	margin-left:4px;
+	line-height:14px;
+	font-size:12px;
+	border-radius:6px;
+	background-color:#f69;
+	text-align:center;
+	}
+.icon-tr{
+	display: inline-block;
+	margin-left: 4px;
+	line-height: 32px;
+	font-size: 10px;
+	font-style: normal;
+	vertical-align: top;/*啥意思啊*/
+	}
+.js1:hover .js2-2{
+	display:block;
+	}
+.js2-2{
+	text-align:left;
+	display:none;
+	position:absolute;
+	background-color:#333;
+	min-width:100%;
+	background-color:#333;
+	color:#ffffff;
+	text-align:center;
+	z-index:2000;
+	}
+.js2-2 li{
+	white-space:nowrap
+	}	
+.js2-2 li:hover{
+	background:#505050;
+	}

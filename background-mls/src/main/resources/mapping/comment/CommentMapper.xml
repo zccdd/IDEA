@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.comment.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.model.comment.Comment" >
+    <id column="commentid" property="commentid" jdbcType="INTEGER" />
+    <result column="commenttype" property="commenttype" jdbcType="VARCHAR" />
+    <result column="commentcont" property="commentcont" jdbcType="VARCHAR" />
+    <result column="gid" property="gid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+
+    <result column="reply" property="reply" jdbcType="VARCHAR" />
+    <result column="aid" property="aid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    commentid, commenttype, commentcont
+  </sql>
+  <select id="queryCount" parameterType="com.jk.model.comment.Comment" resultType="long">
+
+    select count(*) from  b_comment  where 1=1
+
+
+  </select>
+  <select id="queryComment" resultType="com.jk.model.comment.Comment" >
+    select
+	c.commentid,
+	c.commenttype,
+	c.commentcont,
+	c.reply,
+	g.gname,
+	g.gjieshao,
+	u.uname,
+	a.aname
+  from b_comment c,
+		 b_goods g,
+		 b_user u,
+		 b_admin a
+where c.gid = g.gid
+	and c.uid = u.uid
+	and c.aid = a.aid
+	limit #{start},#{end}
+
+  </select>
+
+  <delete id="deleteOne" parameterType="java.lang.Integer" >
+    delete from b_comment
+    where commentid = #{commentid,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteByid" parameterType="java.lang.String" >
+    delete from b_comment
+    where commentid = #{ids}
+  </delete>
+  <!--//根据id回显值-->
+  <select id="queryUpdateComment" resultMap="BaseResultMap" >
+    select * from b_comment
+    where commentid = #{commentid}
+  </select>
+  <insert id="insert" parameterType="com.jk.model.comment.Comment" >
+    insert into b_comment (commentid, commenttype, commentcont
+      )
+    values (#{commentid,jdbcType=INTEGER}, #{commenttype,jdbcType=VARCHAR}, #{commentcont,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="addComment222" parameterType="com.jk.model.comment.Comment" >
+    insert into b_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentid != null" >
+        commentid,
+      </if>
+      <if test="commenttype != null" >
+        commenttype,
+      </if>
+      <if test="commentcont != null" >
+        commentcont,
+      </if>
+      <if test="reply != null" >
+        reply,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentid != null" >
+        #{commentid,jdbcType=INTEGER},
+      </if>
+      <if test="commenttype != null" >
+        #{commenttype,jdbcType=VARCHAR},
+      </if>
+      <if test="commentcont != null" >
+        #{commentcont,jdbcType=VARCHAR},
+      </if>
+      <if test="reply != null" >
+        #{reply,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="addComment" parameterType="com.jk.model.comment.Comment" >
+    update b_comment
+    <set >
+      <if test="commenttype != null" >
+        commenttype = #{commenttype,jdbcType=VARCHAR},
+      </if>
+      <if test="commentcont != null" >
+        commentcont = #{commentcont,jdbcType=VARCHAR},
+      </if>
+      <if test="reply != null" >
+        reply = #{reply,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where commentid = #{commentid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jk.model.comment.Comment" >
+    update b_comment
+    set commenttype = #{commenttype,jdbcType=VARCHAR},
+      commentcont = #{commentcont,jdbcType=VARCHAR}
+        reply = #{reply,jdbcType=VARCHAR}
+    where commentid = #{commentid,jdbcType=INTEGER}
+  </update>
+</mapper>

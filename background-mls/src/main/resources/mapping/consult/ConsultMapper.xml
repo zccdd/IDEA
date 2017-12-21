@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.consult.ConsultMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.model.consult.Consult" >
+    <id column="consultid" property="consultid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="consultcon" property="consultcon" jdbcType="VARCHAR" />
+    <result column="consultstate" property="consultstate" jdbcType="INTEGER" />
+    <result column="consult1" property="consult1" jdbcType="INTEGER" />
+    <result column="consult2" property="consult2" jdbcType="VARCHAR" />
+    <result column="consult3" property="consult3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    consultid, uid, aid, consultcon, consultstate, consult1, consult2, consult3
+  </sql>
+  <!--查询全部咨询-->
+  <select id="queryCount" parameterType="com.jk.model.consult.Consult" resultType="long">
+
+    select count(*) from  b_consult  where 1=1
+
+
+  </select>
+<!--查询未回复咨询-->
+
+  <select id="queryCount1" parameterType="com.jk.model.consult.Consult" resultType="long">
+
+    select count(*) from  b_consult  where consultstate = 2
+
+
+  </select>
+  <!--查询已回复状态-->
+  <select id="queryCount2" parameterType="com.jk.model.consult.Consult" resultType="long">
+
+    select count(*) from  b_consult  where consultstate = 1
+
+
+  </select>
+  <!--查询未回复数据-->
+  <select id="queryConsultNo" resultType="com.jk.model.consult.Consult" >
+       select o.consultid,o.consultstate ,o.consultcon,o.consult2,u.uname,a.aname
+    from b_consult o,b_user u,b_admin a
+    where o.uid = u.uid
+		and o.consultstate=2
+    and o.aid = a.aid
+    limit #{start},#{end}
+  </select>
+  <!--查询已回复状态-->
+  <select id="queryConsultYi" resultType="com.jk.model.consult.Consult" >
+    select o.consultid,o.consultstate ,o.consultcon,o.consult2,u.uname,a.aname
+    from b_consult o,b_user u,b_admin a
+    where o.uid = u.uid
+    and o.consultstate=1
+    and o.aid = a.aid
+    limit #{start},#{end}
+  </select>
+  <!--查询全部数据-->
+  <select id="queryConsult" resultType="com.jk.model.consult.Consult" >
+      select o.consultid,o.consultstate,o.consultcon,o.consult2,u.uname,a.aname
+       from b_consult o,b_user u,b_admin a
+      where o.uid = u.uid
+      and o.aid = a.aid
+      limit #{start},#{end}
+  </select>
+  <!--批量删除-->
+  <delete id="deleteByids" parameterType="java.lang.String" >
+    delete from b_consult
+    where consultid = #{ids}
+  </delete>
+  <!---->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from b_consult
+    where consultid = #{consultid,jdbcType=INTEGER}
+  </select>
+  <select id="queryUpdateConsult" resultMap="BaseResultMap" >
+    select * from b_consult
+    where consultid = #{consultid}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from b_consult
+    where consultid = #{consultid,jdbcType=INTEGER}
+  </delete>
+  <!--修改状态-->
+  <update id="updateCon" parameterType="com.jk.model.consult.Consult">
+    update b_consult set consultstate = 1,consult2=#{consult2}
+    where consultid = #{consultid}
+
+  </update>
+  <insert id="insert" parameterType="com.jk.model.consult.Consult" >
+    insert into b_consult (consultid, uid, aid, 
+      consultcon, consultstate, consult1, 
+      consult2, consult3)
+    values (#{consultid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER}, 
+      #{consultcon,jdbcType=VARCHAR}, #{consultstate,jdbcType=INTEGER}, #{consult1,jdbcType=INTEGER}, 
+      #{consult2,jdbcType=VARCHAR}, #{consult3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="qwe" parameterType="com.jk.model.consult.Consult" >
+    insert into b_consult
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="consultid != null" >
+        consultid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="consultcon != null" >
+        consultcon,
+      </if>
+      <if test="consultstate != null" >
+        consultstate,
+      </if>
+      <if test="consult1 != null" >
+        consult1,
+      </if>
+      <if test="consult2 != null" >
+        consult2,
+      </if>
+      <if test="consult3 != null" >
+        consult3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="consultid != null" >
+        #{consultid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="consultcon != null" >
+        #{consultcon,jdbcType=VARCHAR},
+      </if>
+      <if test="consultstate != null" >
+        #{consultstate,jdbcType=INTEGER},
+      </if>
+      <if test="consult1 != null" >
+        #{consult1,jdbcType=INTEGER},
+      </if>
+      <if test="consult2 != null" >
+        #{consult2,jdbcType=VARCHAR},
+      </if>
+      <if test="consult3 != null" >
+        #{consult3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="addConsult" parameterType="com.jk.model.consult.Consult" >
+    update b_consult
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="aid != null" >
+        aid = #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="consultcon != null" >
+        consultcon = #{consultcon,jdbcType=VARCHAR},
+      </if>
+      <if test="consultstate != null" >
+        consultstate = #{consultstate,jdbcType=INTEGER},
+      </if>
+      <if test="consult1 != null" >
+        consult1 = #{consult1,jdbcType=INTEGER},
+      </if>
+      <if test="consult2 != null" >
+        consult2 = #{consult2,jdbcType=VARCHAR},
+      </if>
+      <if test="consult3 != null" >
+        consult3 = #{consult3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where consultid = #{consultid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jk.model.consult.Consult" >
+    update b_consult
+    set uid = #{uid,jdbcType=INTEGER},
+      aid = #{aid,jdbcType=INTEGER},
+      consultcon = #{consultcon,jdbcType=VARCHAR},
+      consultstate = #{consultstate,jdbcType=INTEGER},
+      consult1 = #{consult1,jdbcType=INTEGER},
+      consult2 = #{consult2,jdbcType=VARCHAR},
+      consult3 = #{consult3,jdbcType=VARCHAR}
+    where consultid = #{consultid,jdbcType=INTEGER}
+  </update>
+</mapper>

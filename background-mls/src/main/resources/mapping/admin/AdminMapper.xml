@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.admin.AdminMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.model.admin.Admin" >
+    <id column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="aname" property="aname" jdbcType="VARCHAR" />
+    <result column="auser" property="auser" jdbcType="VARCHAR" />
+    <result column="apwd" property="apwd" jdbcType="VARCHAR" />
+    <result column="aphone" property="aphone" jdbcType="CHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="locked" property="locked" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    aid, aname, auser, apwd, aphone
+  </sql>
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from b_admin
+    where aid = #{aid,jdbcType=INTEGER}
+  </select>
+
+  <!--登录查询-->
+  <select id="getUserByUsername" resultType="com.jk.model.admin.Admin" parameterType="java.lang.String" >
+    select * from b_admin
+    where auser = #{uname}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from b_admin
+    where aid = #{aid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jk.model.admin.Admin" >
+    insert into b_admin (aid, aname, auser, 
+      apwd, aphone)
+    values (#{aid,jdbcType=INTEGER}, #{aname,jdbcType=VARCHAR}, #{auser,jdbcType=VARCHAR}, 
+      #{apwd,jdbcType=VARCHAR}, #{aphone,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jk.model.admin.Admin" >
+    insert into b_admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="aname != null" >
+        aname,
+      </if>
+      <if test="auser != null" >
+        auser,
+      </if>
+      <if test="apwd != null" >
+        apwd,
+      </if>
+      <if test="aphone != null" >
+        aphone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="aname != null" >
+        #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="auser != null" >
+        #{auser,jdbcType=VARCHAR},
+      </if>
+      <if test="apwd != null" >
+        #{apwd,jdbcType=VARCHAR},
+      </if>
+      <if test="aphone != null" >
+        #{aphone,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jk.model.admin.Admin" >
+    update b_admin
+    <set >
+      <if test="aname != null" >
+        aname = #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="auser != null" >
+        auser = #{auser,jdbcType=VARCHAR},
+      </if>
+      <if test="apwd != null" >
+        apwd = #{apwd,jdbcType=VARCHAR},
+      </if>
+      <if test="aphone != null" >
+        aphone = #{aphone,jdbcType=CHAR},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jk.model.admin.Admin" >
+    update b_admin
+    set aname = #{aname,jdbcType=VARCHAR},
+      auser = #{auser,jdbcType=VARCHAR},
+      apwd = #{apwd,jdbcType=VARCHAR},
+      aphone = #{aphone,jdbcType=CHAR}
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+</mapper>

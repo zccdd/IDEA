@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.ShopMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.model.Shop" >
+    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <id column="gid" property="gid" jdbcType="INTEGER" />
+    <result column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="counts" property="counts" jdbcType="INTEGER" />
+    <result column="tpname" property="tpname" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="isExists" resultType="com.jk.model.Shop" >
+    select * from b_shop where uid=#{uid} and gid=#{spid}
+  </select>
+  <select id="getShop" resultMap="BaseResultMap" >
+    select * from b_shop where uid=#{uid}
+  </select>
+  <sql id="Base_Column_List" >
+    uid, gid, aid, price, name, counts, tpname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.jk.model.ShopKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from b_shop
+    where uid = #{uid,jdbcType=INTEGER}
+      and gid = #{gid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from b_shop where gid = #{spid}
+  </delete>
+  <delete id="deleteShopByUid" parameterType="java.lang.Integer" >
+    delete from b_shop where uid = #{uid}
+  </delete>
+  <insert id="insertSelective" parameterType="com.jk.model.Shop" >
+    insert into b_shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="counts != null" >
+        counts,
+      </if>
+      <if test="tpname != null" >
+        tpname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="counts != null" >
+        #{counts,jdbcType=INTEGER},
+      </if>
+      <if test="tpname != null" >
+        #{tpname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jk.model.Shop" >
+    update b_shop
+    <set >
+      <if test="aid != null" >
+        aid = #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="counts != null" >
+        counts = #{counts,jdbcType=INTEGER},
+      </if>
+      <if test="tpname != null" >
+        tpname = #{tpname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=INTEGER}
+      and gid = #{gid,jdbcType=INTEGER}
+  </update>
+  <insert id="addShoppingItem" parameterType="com.jk.model.Shop" >
+    insert into b_shop (uid, gid, aid,
+    price, name, counts,
+    tpname)
+    values (#{shop.uid}, #{shop.gid}, #{shop.aid},
+    #{shop.price}, #{shop.name}, #{shop.counts},
+    #{shop.tpname})
+  </insert>
+  <update id="updateCartItemCount" parameterType="com.jk.model.Shop" >
+    update b_shop
+    set counts = #{shop.counts}
+    where uid = #{shop.uid}
+      and gid = #{shop.gid}
+  </update>
+</mapper>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.model.Order" >
+    <id column="oid" property="oid" jdbcType="INTEGER" />
+    <result column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="gid" property="gid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="total" property="total" jdbcType="DECIMAL" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="creatime" property="creatime" jdbcType="DATE" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="onumber" property="onumber" jdbcType="VARCHAR" />
+    <result column="ocount" property="ocount" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="queryOrder" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from b_order where uid = #{uid}
+  </select>
+  <update id="updateOrderByUid" parameterType="java.lang.Integer" >
+    update b_order set status = '2' where uid = #{uid}
+  </update>
+  <sql id="Base_Column_List" >
+    oid, aid, gid, uid, total, address, creatime, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from b_order
+    where oid = #{oid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from b_order
+    where oid = #{oid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jk.model.Order" >
+    insert into b_order (aid, gid,
+      uid, total, address, 
+      creatime, status, onumber, ocount)
+    values (#{aid,jdbcType=INTEGER}, #{gid,jdbcType=INTEGER},
+      #{uid,jdbcType=INTEGER}, #{total,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR}, 
+      #{creatime,jdbcType=DATE}, #{status,jdbcType=VARCHAR}, #{onumber,jdbcType=VARCHAR}, #{ocount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jk.model.Order" >
+    insert into b_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oid != null" >
+        oid,
+      </if>
+      <if test="aid != null" >s
+        aid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="creatime != null" >
+        creatime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="onumber != null" >
+        onumber,
+      </if>
+      <if test="ocount != null" >
+        ocount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oid != null" >
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="creatime != null" >
+        #{creatime,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="onumber != null" >
+        #{onumber,jdbcType=VARCHAR},
+      </if>
+      <if test="ocount != null" >
+        #{ocount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jk.model.Order" >
+    update b_order
+    <set >
+      <if test="aid != null" >
+        aid = #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        gid = #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="creatime != null" >
+        creatime = #{creatime,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jk.model.Order" >
+    update b_order
+    set aid = #{aid,jdbcType=INTEGER},
+      gid = #{gid,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      total = #{total,jdbcType=DECIMAL},
+      address = #{address,jdbcType=VARCHAR},
+      creatime = #{creatime,jdbcType=DATE},
+      status = #{status,jdbcType=VARCHAR}
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+</mapper>
